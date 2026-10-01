@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>LedgerFlow AI | Enterprise AP Forensic Suite</title>
+    
+    <!-- Modern Typography & Enterprise Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        /* Modern Hyper-Vibrant Fintech Palette */
+                        brand: {
+                            50: "#eef2ff",
+                            100: "#e0e7ff",
+                            500: "#6366f1",
+                            700: "#4338ca",
+                            900: "#312e81"
+                        },
+                        primary: "#4f46e5", /* Electric Indigo */
+                        "primary-container": "#e0e7ff",
+                        secondary: "#10b981", /* Vibrant Emerald */
+                        "secondary-container": "#d1fae5",
+                        "secondary-fixed": "#ecfdf5",
+                        "on-secondary-fixed-variant": "#047857",
+                        tertiary: "#f59e0b", /* Bright Amber */
+                        "tertiary-fixed": "#fffbeb",
+                        "on-tertiary-fixed-variant": "#b45309",
+                        error: "#ef4444", /* Ruby Red */
+                        "error-container": "#fef2f2",
+                        "on-error-container": "#b91c1c",
+                        
+                        /* Crisp Whites & Cool Slates */
+                        surface: "#f8fafc", 
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f1f5f9",
+                        "surface-container-high": "#e2e8f0",
+                        "on-surface": "#0f172a",
+                        "on-surface-variant": "#64748b",
+                        outline: "#cbd5e1",
+                        "outline-variant": "#e2e8f0"
+                    },
+                    fontFamily: {
+                        sans: ["'Plus Jakarta Sans'", "sans-serif"],
+                        mono: ["'JetBrains Mono'", "monospace"]
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Chart.js 4.4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+        
+        /* Floating animations for an active feel */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(79, 70, 229, 0); }
+        }
+        .animate-pulse-glow { animation: pulse-glow 2s infinite; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex h-screen overflow-hidden selection:bg-brand-100 selection:text-primary">
+
+    <!-- Left Persistent Navigation Sidebar -->
+    <aside class="w-72 bg-surface-container-lowest border-r border-outline-variant flex flex-col justify-between shrink-0 shadow-[4px_0_24px_rgba(15,23,42,0.02)] z-30 transition-all duration-200">
+        <div class="flex flex-col flex-1 overflow-y-auto">
+            <!-- Brand Emblem Header -->
+            <div class="p-6 border-b border-outline-variant">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white shadow-[0_4px_12px_rgba(99,102,241,0.3)] font-bold transition-transform hover:scale-105 duration-200">
+                        <span class="material-symbols-outlined text-[22px]">auto_awesome</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg text-on-surface tracking-tight leading-tight">LedgerFlow AI</span>
+                        <span class="text-[10px] font-bold text-primary uppercase tracking-widest">Forensic Edition</span>
+                    </div>
+                </div>
+                <!-- Telemetry Heartbeat Pill -->
+                <div class="mt-5 flex items-center justify-between px-3 py-2 rounded-xl bg-surface-container-low border border-outline-variant shadow-sm">
+                    <div class="flex items-center gap-2">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        <span class="font-mono text-[11px] font-bold text-on-surface">PyTorch Engine</span>
+                    </div>
+                    <span class="text-[10px] font-mono font-bold text-primary bg-primary-container px-2 py-0.5 rounded shadow-sm">ACTIVE</span>
+                </div>
+            </div>
+
+            <!-- Navigation Menus -->
+            <div class="p-5 space-y-7">
+                <div>
+                    <span class="px-3 text-[10px] font-extrabold uppercase tracking-widest text-on-surface-variant">Triage Queues</span>
+                    <nav class="mt-3 space-y-1.5">
+                        <a href="/" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 {% if current_tab == 'dashboard' %}bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_4px_12px_rgba(99,102,241,0.25)]{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-primary{% endif %}">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[20px]">space_dashboard</span>
+                                <span>Dashboard</span>
+                            </div>
+                        </a>
+                        <a href="/invoices/all" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 {% if current_tab == 'all' %}bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-[0_4px_12px_rgba(99,102,241,0.25)]{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-primary{% endif %}">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[20px]">database</span>
+                                <span>All Records</span>
+                            </div>
+                            <span class="font-mono text-xs px-2 py-0.5 rounded-md {% if current_tab == 'all' %}bg-white/20 text-white{% else %}bg-surface-container-high text-on-surface-variant{% endif %}">
+                                {{ total | default(invoices|length if invoices else 0) }}
+                            </span>
+                        </a>
+                        <a href="/invoices/pending" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 {% if current_tab == 'pending' %}bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_4px_12px_rgba(245,158,11,0.25)]{% else %}text-on-surface-variant hover:bg-tertiary-fixed hover:text-tertiary{% endif %}">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[20px]">front_hand</span>
+                                <span>Pending Holds</span>
+                            </div>
+                            <span class="font-mono text-xs px-2 py-0.5 rounded-md font-bold {% if current_tab == 'pending' %}bg-white/20 text-white{% else %}bg-tertiary-fixed text-on-tertiary-fixed-variant{% endif %}">
+                                {% if pending is defined %}{{ pending }}{% elif current_tab == 'pending' %}{{ invoices|length }}{% else %}Action{% endif %}
+                            </span>
+                        </a>
+                        <a href="/invoices/approved" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 {% if current_tab == 'approved' %}bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-[0_4px_12px_rgba(16,185,129,0.25)]{% else %}text-on-surface-variant hover:bg-secondary-fixed hover:text-secondary{% endif %}">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[20px]">task_alt</span>
+                                <span>Auto-Approved</span>
+                            </div>
+                            <span class="font-mono text-xs px-2 py-0.5 rounded-md {% if current_tab == 'approved' %}bg-white/20 text-white{% else %}bg-secondary-fixed text-on-secondary-fixed-variant{% endif %}">
+                                {% if approved is defined %}{{ approved }}{% elif current_tab == 'approved' %}{{ invoices|length }}{% else %}STP{% endif %}
+                            </span>
+                        </a>
+                        <a href="/invoices/rejected" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 {% if current_tab == 'rejected' %}bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-[0_4px_12px_rgba(239,68,68,0.25)]{% else %}text-on-surface-variant hover:bg-error-container hover:text-error{% endif %}">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-[20px]">gpp_bad</span>
+                                <span>Fraud / Tamper</span>
+                            </div>
+                            <span class="font-mono text-xs px-2 py-0.5 rounded-md {% if current_tab == 'rejected' %}bg-white/20 text-white{% else %}bg-error-container text-on-error-container{% endif %}">
+                                {% if rejected is defined %}{{ rejected }}{% elif current_tab == 'rejected' %}{{ invoices|length }}{% else %}Sec{% endif %}
+                            </span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Footer with Auditor Status -->
+        <div class="p-5 border-t border-outline-variant bg-surface-container-lowest">
+            <div class="flex items-center gap-3 p-2.5 rounded-xl bg-surface-container-low border border-outline-variant transition-all hover:shadow-md">
+                <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-white font-bold text-xs flex items-center justify-center shadow-sm">
+                    MS
+                </div>
+                <div class="flex flex-col min-w-0 flex-1">
+                    <span class="text-sm font-extrabold text-on-surface truncate">A Tanishq</span>
+                    <span class="font-mono text-[10px] text-primary truncate">FINANCE_ADMIN_01</span>
+                </div>
+                <span class="material-symbols-outlined text-secondary text-[20px]">verified</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrap -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden bg-surface">
+        
+        <!-- Top System Header with Interactive Upload HUD -->
+        <header class="h-20 bg-surface-container-lowest/80 backdrop-blur-xl border-b border-outline-variant flex items-center justify-between px-10 shrink-0 z-20">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2.5 font-mono text-xs text-on-surface-variant bg-surface px-4 py-2 rounded-full border border-outline-variant">
+                    <span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+                    <span class="font-bold text-on-surface">PROD_CLUSTER</span>
+                    <span class="text-outline-variant">|</span>
+                    <span class="text-primary font-bold">FastAPI API Gateway</span>
+                </div>
+            </div>
+
+            <!-- Multipart Invoice Upload Form connected to /action/upload -->
+            <form action="/action/upload" method="post" enctype="multipart/form-data" class="flex items-center gap-3">
+                <label class="group cursor-pointer bg-surface hover:bg-primary-container border border-outline-variant hover:border-primary/50 px-4 py-2 rounded-xl text-sm font-bold text-on-surface flex items-center gap-2 transition-all duration-200">
+                    <span class="material-symbols-outlined text-[20px] text-primary group-hover:scale-110 transition-transform">attach_file</span>
+                    <span id="upload-file-label" class="max-w-[200px] truncate text-on-surface-variant group-hover:text-primary transition-colors">Select Invoice...</span>
+                    <input type="file" name="file" accept=".pdf,.jpg,.png" required class="hidden" onchange="const lbl = document.getElementById('upload-file-label'); if(this.files[0]) { lbl.innerText = this.files[0].name; lbl.classList.add('text-primary','font-extrabold'); }">
+                </label>
+                <button type="submit" class="bg-on-surface hover:bg-primary text-white px-5 py-2 rounded-xl text-sm font-extrabold flex items-center gap-2 shadow-[0_4px_14px_rgba(15,23,42,0.2)] transition-all duration-200 hover:-translate-y-0.5">
+                    <span class="material-symbols-outlined text-[20px]">upload</span>
+                    Extract AI Data
+                </button>
+            </form>
+        </header>
+
+        <!-- Scrollable Main Content -->
+        <main class="flex-1 overflow-y-auto p-10">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
